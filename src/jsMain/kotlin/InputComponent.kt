@@ -43,7 +43,7 @@ val InputComponent = functionalComponent<InputProps> { props ->
             attrs.value = password
         }
         button(type = ButtonType.submit) {
-            attrs.value = "Log in"
+            +"Log in"
             attrs.onChangeFunction = submitHandler
         }
     }

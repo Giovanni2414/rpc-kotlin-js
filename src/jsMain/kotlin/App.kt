@@ -10,6 +10,7 @@ private val scope = MainScope()
 var username = ""
 var password = ""
 var cont = 0
+var isLogged = false
 
 val App = functionalComponent<RProps> { _ ->
     val (userList, setUserList) = useState(emptyList<UserListItem>())
@@ -26,7 +27,7 @@ val App = functionalComponent<RProps> { _ ->
             if(user.username == username) {
                 if(user.password == password) {
                     print("You have log in!")
-                    renderLoginView()
+                    isLogged = true
                 }
             }
         }
@@ -68,6 +69,9 @@ val App = functionalComponent<RProps> { _ ->
                     print("Voy al contador")
                     loginAttempt()
                     cont = 0
+                    if(isLogged) {
+                        renderLoginView()
+                    }
                 }
                 println(cont)
                 /*val cartItem = ShoppingListItem(input.replace("!", ""), input.count { it == '!' })
