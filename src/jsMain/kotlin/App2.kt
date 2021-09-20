@@ -21,10 +21,10 @@ val App2 = functionalComponent<RProps> { _ ->
 
     fun logout(): (Event) -> Unit = {
         println("You have logout")
-        render(document.getElementById("root")) {
+        /*render(document.getElementById("root")) {
             document.getElementById("root").remove()
             child(App)
-        }
+        }*/
     }
 
     div(classes = "mx-auto col-md-5") {
