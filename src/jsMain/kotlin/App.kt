@@ -40,6 +40,12 @@ val App = functionalComponent<RProps> { _ ->
         }
     }
 
+    fun renderRegisterView() {
+        render(document.getElementById("root")) {
+            child(App3)
+        }
+    }
+
     /*h1 {
         +"Full-Stack Shopping List"
     }

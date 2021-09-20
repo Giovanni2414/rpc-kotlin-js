@@ -21,10 +21,6 @@ val App2 = functionalComponent<RProps> { _ ->
 
     fun logout(): (Event) -> Unit = {
         println("You have logout")
-        /*render(document.getElementById("root")) {
-            document.getElementById("root").remove()
-            child(App)
-        }*/
     }
 
     div(classes = "mx-auto col-md-5") {
@@ -66,9 +62,11 @@ val App2 = functionalComponent<RProps> { _ ->
                         }
                     }
                 }
-                button {
-                    +"Log out"
-                    attrs.onClickFunction = logout()
+                a(href = "/") {
+                    button {
+                        +"Log out"
+                        attrs.onClickFunction = logout()
+                    }
                 }
             }
         }
