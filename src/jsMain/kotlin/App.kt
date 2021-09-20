@@ -5,7 +5,9 @@ import kotlinx.html.js.*
 import kotlinx.coroutines.*
 
 private val scope = MainScope()
-
+var username = ""
+var password = ""
+var cont = 0
 val App = functionalComponent<RProps> { _ ->
     val (shoppingList, setShoppingList) = useState(emptyList<ShoppingListItem>())
 
@@ -13,6 +15,10 @@ val App = functionalComponent<RProps> { _ ->
         scope.launch {
             setShoppingList(getShoppingList())
         }
+    }
+
+    fun loginAttempt() {
+        
     }
 
     h1 {
@@ -36,13 +42,19 @@ val App = functionalComponent<RProps> { _ ->
         InputComponent,
         props = jsObject {
             onSubmit = { input ->
-                val cartItem = ShoppingListItem(input.replace("!", ""), input.count { it == '!' })
+                if (cont == 0) {
+                    username = input
+                } else {
+                    password = input
+                    loginAttempt()
+                    cont = 0
+                }
+                /*val cartItem = ShoppingListItem(input.replace("!", ""), input.count { it == '!' })
                 scope.launch {
                     addShoppingListItem(cartItem)
                     setShoppingList(getShoppingList())
-                }
+                }*/
             }
         }
     )
-
 }
