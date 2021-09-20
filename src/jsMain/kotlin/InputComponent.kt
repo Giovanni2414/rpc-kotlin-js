@@ -59,11 +59,5 @@ val InputComponent = functionalComponent<InputProps> { props ->
             }
         }
         hr(classes = "mt-3") { }
-        div(classes = "form-group") {
-            button(classes = "btn btn-outline-primary btn-block") {
-                +"Register"
-                //attrs.onChangeFunction = submitHandler
-            }
-        }
     }
 }

@@ -4,6 +4,7 @@ import kotlinext.js.*
 import kotlinx.browser.document
 import kotlinx.html.js.*
 import kotlinx.coroutines.*
+import org.w3c.dom.events.Event
 
 private val scope = MainScope()
 
@@ -26,10 +27,23 @@ val App = functionalComponent<RProps> { _ ->
         println("Process the login attempt " + username + " " + password)
         for (user in userList) {
             if(user.username == username) {
-                if(user.password == password) {
+                if (user.password == password) {
                     print("You have log in!")
                     isLogged = true
+                    return
+                } else {
+                    render(document.getElementById("messages")) {
+                        div(classes = "alert alert-warning mt-3") {
+                            +"Incorrect Password"
+                        }
+                    }
+                    return
                 }
+            }
+        }
+        render(document.getElementById("messages")) {
+            div(classes = "alert alert-warning mt-3") {
+                +"This user doesn't exists"
             }
         }
     }
@@ -40,8 +54,10 @@ val App = functionalComponent<RProps> { _ ->
         }
     }
 
-    fun renderRegisterView() {
+    fun renderRegisterView(): (Event) -> Unit = {
+        render(document.getElementById("messages")) { }
         render(document.getElementById("root")) {
+            println("Cambio")
             child(App3)
         }
     }
@@ -89,4 +105,11 @@ val App = functionalComponent<RProps> { _ ->
             }
         }
     )
+    div(classes = "form-group") {
+        button(classes = "btn btn-outline-primary btn-block") {
+            +"Register"
+            attrs.onChangeFunction = renderRegisterView()
+            attrs.onClickFunction = renderRegisterView()
+        }
+    }
 }

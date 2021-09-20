@@ -69,12 +69,12 @@ val InputComponentRegister = functionalComponent<InputProps> { props ->
 
     val changeHandlerMonth: (Event) -> Unit = {
         val value = ((it.target as HTMLInputElement).value).toInt()
-        setDay(value)
+        setMonth(value)
     }
 
     val changeHandlerYear: (Event) -> Unit = {
         val value = ((it.target as HTMLInputElement).value).toInt()
-        setDay(value)
+        setYear(value)
     }
 
     form() {
