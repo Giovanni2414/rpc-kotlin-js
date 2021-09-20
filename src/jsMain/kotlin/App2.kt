@@ -21,46 +21,56 @@ val App2 = functionalComponent<RProps> { _ ->
 
     fun logout(): (Event) -> Unit = {
         println("You have logout")
+        render(document.getElementById("root")) {
+            document.getElementById("root").remove()
+            child(App)
+        }
     }
 
-    table {
-        thead {
-            tr {
-                th {
-                    +"Username"
+    div(classes = "mx-auto col-md-5") {
+        div(classes = "d-block text-center") {
+            div(classes = "mt-3") {
+                table(classes = "table mt-4") {
+                    thead(classes = "thead-dark") {
+                        tr {
+                            th {
+                                +"Username"
+                            }
+                            th {
+                                +"Firstname"
+                            }
+                            th {
+                                +"Lastname"
+                            }
+                            th {
+                                +"Birthdate"
+                            }
+                        }
+                    }
+                    tbody {
+                        for(user in userList) {
+                            tr {
+                                td {
+                                    +user.username
+                                }
+                                td {
+                                    +user.firstname
+                                }
+                                td {
+                                    +user.lastname
+                                }
+                                td {
+                                    +"${user.day} / ${user.month} / ${user.year}"
+                                }
+                            }
+                        }
+                    }
                 }
-                th {
-                    +"Firstname"
-                }
-                th {
-                    +"Lastname"
-                }
-                th {
-                    +"Birthdate"
+                button {
+                    +"Log out"
+                    attrs.onClickFunction = logout()
                 }
             }
         }
-        tbody {
-            for(user in userList) {
-                tr {
-                    td {
-                        +user.username
-                    }
-                    td {
-                        +user.firstname
-                    }
-                    td {
-                        +user.lastname
-                    }
-                    td {
-                        +"${user.day} / ${user.month} / ${user.year}"
-                    }
-                }
-            }
-        }
-    }
-    button {
-        +"Log out"
-        attrs.onClickFunction = logout()
     }
 }

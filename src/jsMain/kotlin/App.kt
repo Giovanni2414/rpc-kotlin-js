@@ -18,6 +18,7 @@ val App = functionalComponent<RProps> { _ ->
     useEffect {
         scope.launch {
             setUserList(getUserList())
+            isLogged = false
         }
     }
 
@@ -34,15 +35,15 @@ val App = functionalComponent<RProps> { _ ->
     }
 
     fun renderLoginView() {
-        render(document.getElementById("usersPanel")) {
+        render(document.getElementById("root")) {
             child(App2)
         }
     }
 
-    h1 {
+    /*h1 {
         +"Full-Stack Shopping List"
     }
-    /*ul {
+    ul {
         shoppingList.sortedByDescending(ShoppingListItem::priority).forEach { item ->
             li {
                 key = item.toString()

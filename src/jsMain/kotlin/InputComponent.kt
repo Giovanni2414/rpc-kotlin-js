@@ -32,19 +32,38 @@ val InputComponent = functionalComponent<InputProps> { props ->
         setPassword(value)
     }
 
-    form {
+    form() {
         attrs.onSubmitFunction = submitHandler
-        input(InputType.text) {
-            attrs.onChangeFunction = changeHandlerUsername
-            attrs.value = username
+        div(classes = "form-group") {
+            label(classes = "control-label") {
+                +"Username"
+            }
+            input(InputType.text, classes = "form-control") {
+                attrs.onChangeFunction = changeHandlerUsername
+                attrs.value = username
+            }
         }
-        input(InputType.text) {
-            attrs.onChangeFunction = changeHandlerPassword
-            attrs.value = password
+        div(classes = "form-group") {
+            label(classes = "control-label") {
+                +"Password"
+            }
+            input(InputType.text, classes = "form-control") {
+                attrs.onChangeFunction = changeHandlerPassword
+                attrs.value = password
+            }
         }
-        button(type = ButtonType.submit) {
-            +"Log in"
-            attrs.onChangeFunction = submitHandler
+        div(classes = "form-group mt-3") {
+            button(type = ButtonType.submit, classes = "btn btn-primary btn-block") {
+                +"Log in"
+                attrs.onChangeFunction = submitHandler
+            }
+        }
+        hr(classes = "mt-3") { }
+        div(classes = "form-group") {
+            button(classes = "btn btn-outline-primary btn-block") {
+                +"Register"
+                //attrs.onChangeFunction = submitHandler
+            }
         }
     }
 }
