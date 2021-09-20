@@ -1,30 +1,47 @@
 import react.*
 import react.dom.*
 import kotlinext.js.*
+import kotlinx.browser.document
 import kotlinx.html.js.*
 import kotlinx.coroutines.*
 
 private val scope = MainScope()
+
 var username = ""
 var password = ""
 var cont = 0
+
 val App = functionalComponent<RProps> { _ ->
-    val (shoppingList, setShoppingList) = useState(emptyList<ShoppingListItem>())
+    val (userList, setUserList) = useState(emptyList<UserListItem>())
 
     useEffect {
         scope.launch {
-            setShoppingList(getShoppingList())
+            setUserList(getUserList())
         }
     }
 
     fun loginAttempt() {
-        
+        println("Process the login attempt " + username + " " + password)
+        for (user in userList) {
+            if(user.username == username) {
+                if(user.password == password) {
+                    print("You have log in!")
+                    renderLoginView()
+                }
+            }
+        }
+    }
+
+    fun renderLoginView() {
+        render(document.getElementById("usersPanel")) {
+            child(App2)
+        }
     }
 
     h1 {
         +"Full-Stack Shopping List"
     }
-    ul {
+    /*ul {
         shoppingList.sortedByDescending(ShoppingListItem::priority).forEach { item ->
             li {
                 key = item.toString()
@@ -37,18 +54,22 @@ val App = functionalComponent<RProps> { _ ->
                 }
             }
         }
-    }
+    }*/
     child(
         InputComponent,
         props = jsObject {
             onSubmit = { input ->
                 if (cont == 0) {
                     username = input
+                    cont++
+                    println("Primer cont")
                 } else {
                     password = input
+                    print("Voy al contador")
                     loginAttempt()
                     cont = 0
                 }
+                println(cont)
                 /*val cartItem = ShoppingListItem(input.replace("!", ""), input.count { it == '!' })
                 scope.launch {
                     addShoppingListItem(cartItem)

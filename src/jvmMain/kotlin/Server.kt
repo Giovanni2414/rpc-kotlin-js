@@ -13,10 +13,10 @@ import org.litote.kmongo.coroutine.*
 import org.litote.kmongo.reactivestreams.KMongo
 import com.mongodb.ConnectionString
 
-val shoppingList = mutableListOf(
-    ShoppingListItem("Cucumbers 🥒", 1),
-    ShoppingListItem("Tomatoes 🍅", 2),
-    ShoppingListItem("Orange Juice 🍊", 3)
+val userList = mutableListOf(
+    UserListItem("xGiovanni", "Giovanni", "Mosquera", "nike4545", 27, 7, 2001),
+    UserListItem("juseros9", "Sebastián", "Rodriguez", "12345678", 13, 10, 2002),
+    UserListItem("juanmiloz", "Juan Camilo", "Zorrilla", "peoncha12", 28, 5, 2002)
 )
 
 fun main() {
@@ -35,17 +35,17 @@ fun main() {
             gzip()
         }
         routing {
-            route(ShoppingListItem.path) {
+            route(UserListItem.path) {
                 get {
-                    call.respond(shoppingList)
+                    call.respond(userList)
                 }
                 post {
-                    shoppingList += call.receive<ShoppingListItem>()
+                    userList += call.receive<UserListItem>()
                     call.respond(HttpStatusCode.OK)
                 }
-                delete("/{id}") {
-                    val id = call.parameters["id"]?.toInt() ?: error("Invalid delete request")
-                    shoppingList.removeIf { it.id == id }
+                delete("/{username}") {
+                    val username = call.parameters["username"]?: error("Invalid delete request")
+                    userList.removeIf { it.username == username }
                     call.respond(HttpStatusCode.OK)
                 }
             }
